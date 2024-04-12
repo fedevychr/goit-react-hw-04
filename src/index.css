@@ -1,11 +1,11 @@
-:root {
+body {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #212121;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,11 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  font-family: sans-serif;
-  line-height: 1.5;
-}
-
+/* Reset styles */
 h1,
 h2,
 h3,
@@ -28,13 +24,31 @@ p {
   margin: 0;
 }
 
-ul,
-ol {
+ul {
   margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
   padding: 0;
 }
 
 img {
   display: block;
   max-width: 100%;
+  height: auto;
+}
+
+.modal-open {
+  overflow: hidden;
 }
