@@ -9,7 +9,6 @@ const SearchBar = ({ searchPhotos }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const query = value.trim();
     if (!query.length) {
       toast.error("Please, enter your query");
@@ -19,8 +18,7 @@ const SearchBar = ({ searchPhotos }) => {
   };
 
   const handleChange = (e) => {
-    const { value } = e.target;
-    setValue(value);
+    setValue(e.target.value);
   };
 
   return (

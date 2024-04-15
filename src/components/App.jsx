@@ -11,13 +11,12 @@ import { getPhotos } from "../services/api";
 function App() {
   const [photos, setPhotos] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(null);
+  const [error, setError] = useState(null);
 
   const [query, setQuery] = useState("");
-  // const [page, setPage] = useState(1);
-  // const [totalPages, setTotalPage] = useState(1);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPage] = useState(1);
 
-  // const [showBtn, setShowBtn] = useState(false);
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const [selectedPhoto, setSelectedPhoto] = useState(null);
 
@@ -26,23 +25,35 @@ function App() {
 
     async function fetchPhotos() {
       try {
+        setError(null);
         setIsLoading(true);
-        setIsError(null);
-        const data = await getPhotos(query);
-        setPhotos(data);
+
+        const data = await getPhotos(query, page);
+        setTotalPage(data.total_pages);
+
+        setPhotos((prevPhotos) =>
+          prevPhotos ? [...prevPhotos, ...data.results] : data.results
+        );
       } catch (error) {
-        setIsError(true);
+        setError(error.message);
       } finally {
         setIsLoading(false);
       }
     }
 
     fetchPhotos();
-  }, [query]);
+  }, [query, page]);
 
   const searchPhotos = (newQuery) => {
+    if (newQuery === query) return;
+    setPhotos(null);
+    setPage(1);
     setQuery(newQuery);
   };
+
+  const onLoadMore = () => setPage((prevPage) => prevPage + 1);
+
+  const isShowBtn = Boolean(photos?.length && !isLoading && page < totalPages);
 
   return (
     <div>
@@ -50,13 +61,15 @@ function App() {
 
       <div>
         {photos && <ImageGallery photos={photos} />}
-        {isError && <ErrorMessage />}
+        {error && <ErrorMessage message={error} />}
         {isLoading && <Loader />}
-        <div>
-          <LoadMoreBtn>Load more</LoadMoreBtn>
-        </div>
-      </div>
 
+        {isShowBtn && (
+          <div>
+            <LoadMoreBtn onLoadMore={onLoadMore}>Load more</LoadMoreBtn>
+          </div>
+        )}
+      </div>
       <ImageModal />
     </div>
   );
