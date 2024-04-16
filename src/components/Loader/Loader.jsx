@@ -1,8 +1,9 @@
+import css from "./Loader.module.css";
 import { InfinitySpin } from "react-loader-spinner";
 
 const Loader = () => {
   return (
-    <div>
+    <div className={css.Loader}>
       <InfinitySpin
         visible={true}
         width="200"

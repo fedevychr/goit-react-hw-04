@@ -1,0 +1,16 @@
+.button {
+  padding: 10px 20px;
+
+  border-radius: 2px;
+
+  color: rgb(255, 255, 255);
+  background-color: rgb(72, 75, 170);
+
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.button:hover,
+.button:focus {
+  opacity: 0.8;
+}

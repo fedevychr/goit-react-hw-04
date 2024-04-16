@@ -1,0 +1,14 @@
+.body {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.main {
+  padding: 20px 10px;
+}
+
+.btnWrapper {
+  padding: 20px 10px;
+  display: flex;
+  justify-content: center;
+}

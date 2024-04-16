@@ -1,3 +1,4 @@
+import css from "./SearchBar.module.css";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FiSearch } from "react-icons/fi";
@@ -22,9 +23,10 @@ const SearchBar = ({ searchPhotos }) => {
   };
 
   return (
-    <header>
-      <form onSubmit={handleSubmit}>
+    <header className={css.search}>
+      <form className={css.form} onSubmit={handleSubmit}>
         <input
+          className={css.input}
           type="text"
           autoComplete="off"
           autoFocus
@@ -32,7 +34,7 @@ const SearchBar = ({ searchPhotos }) => {
           value={value}
           onChange={handleChange}
         />
-        <button type="submit">
+        <button className={css.button} type="submit">
           <FiSearch size="16px" />
         </button>
         <Toaster position="bottom-center" />

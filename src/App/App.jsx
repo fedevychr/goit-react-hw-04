@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import ErrorMessage from "./ErrorMessage/ErrorMessage";
-import ImageGallery from "./ImageGallery/ImageGallery";
-import ImageModal from "./ImageModal/ImageModal";
-import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
-import Loader from "./Loader/Loader";
-import SearchBar from "./SearchBar/SearchBar";
+import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
+import ImageGallery from "../components/ImageGallery/ImageGallery";
+import ImageModal from "../components/ImageModal/ImageModal";
+import LoadMoreBtn from "../components/LoadMoreBtn/LoadMoreBtn";
+import Loader from "../components/Loader/Loader";
+import SearchBar from "../components/SearchBar/SearchBar";
+import css from "../App/App.module.css";
 
 import { getPhotos } from "../services/api";
 
@@ -17,8 +18,8 @@ function App() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPage] = useState(1);
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   useEffect(() => {
     if (!query) return;
@@ -55,22 +56,37 @@ function App() {
 
   const isShowBtn = Boolean(photos?.length && !isLoading && page < totalPages);
 
+  const openModal = (photo) => {
+    setSelectedPhoto(photo);
+    setIsModalOpen(true);
+    document.body.classList.add("modal-open");
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.classList.remove("modal-open");
+  };
+
   return (
-    <div>
+    <div className={css.body}>
       <SearchBar searchPhotos={searchPhotos} />
 
-      <div>
-        {photos && <ImageGallery photos={photos} />}
+      <div className={css.main}>
+        {photos && <ImageGallery photos={photos} openModal={openModal} />}
         {error && <ErrorMessage message={error} />}
         {isLoading && <Loader />}
 
         {isShowBtn && (
-          <div>
+          <div className={css.btnWrapper}>
             <LoadMoreBtn onLoadMore={onLoadMore}>Load more</LoadMoreBtn>
           </div>
         )}
       </div>
-      <ImageModal />
+      <ImageModal
+        photo={selectedPhoto}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+      />
     </div>
   );
 }

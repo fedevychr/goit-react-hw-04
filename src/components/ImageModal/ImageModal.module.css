@@ -1,0 +1,22 @@
+.modal {
+  position: relative;
+}
+.closeBtn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+
+  width: 30px;
+  height: 30px;
+
+  font-size: 30px;
+
+  background-color: rgba(33, 33, 33, 0.9);
+
+  border-radius: 50%;
+  transition: color 0.3s ease;
+}
+
+.closeBtn:hover {
+  color: rgb(72, 75, 170);
+}
