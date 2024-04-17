@@ -3,8 +3,6 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FiSearch } from "react-icons/fi";
 
-toast.error("Please, enter the text");
-
 const SearchBar = ({ searchPhotos }) => {
   const [value, setValue] = useState("");
 
