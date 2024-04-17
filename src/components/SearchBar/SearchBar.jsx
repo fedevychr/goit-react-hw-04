@@ -11,6 +11,7 @@ const SearchBar = ({ searchPhotos }) => {
     const query = value.trim();
     if (!query.length) {
       toast.error("Please, enter your query");
+      return;
     }
 
     searchPhotos(query);
